@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <link rel="stylesheet" href="http://YourWebSocketServer/remote/my.css" />
+        <style>
+            /* customize button display */
+            .button         { height:5em; }
+            .button#F1      { display:none; }
+            .button#UP      { display:none; }
+            .button#F2      { display:none; }
+            .button#LEFT    { /* customize */ }
+            .button#MIDDLE  { display:none; }
+            .button#RIGHT   { /* customize */ }
+            .button#F3      { display:none; }
+            .button#DOWN    { display:none; }
+            .button#F4      { display:none; }
+        </style>
+        <script>
+            // customize host address
+            var host = "YourWebSocketServer";
+
+            // customize button texts
+            var buttontexts = [];
+            buttontexts["F1"]       =   "F1";
+            buttontexts["UP"]       =   "UP";
+            buttontexts["F2"]       =   "F2";
+            buttontexts["LEFT"]     =   "PREV";
+            buttontexts["MIDDLE"]   =   "MIDDLE";
+            buttontexts["RIGHT"]    =   "NEXT";
+            buttontexts["F3"]       =   "F3";
+            buttontexts["DOWN"]     =   "DOWN";
+            buttontexts["F4"]       =   "F4";
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.js">
+        </script>
+        <script src="http://YourWebSocketServer/remote/my.js">
+        </script>
+        <script src="http://YourWebSocketServer/socket.io/socket.io.js"></script>
+        <script>
+            // you can customize button texts
+            var buttontexts = [];
+            buttontexts["F1"]       =   "F1";
+            buttontexts["UP"]       =   "UP";
+            buttontexts["F2"]       =   "F2";
+            buttontexts["LEFT"]     =   "PREV";
+            buttontexts["MIDDLE"]   =   "MIDDLE";
+            buttontexts["RIGHT"]    =   "NEXT";
+            buttontexts["F3"]       =   "F3";
+            buttontexts["DOWN"]     =   "DOWN";
+            buttontexts["F4"]       =   "F4";
+
+            // server messages
+            var page = 1;
+            var socket = io.connect(host);
+            socket.on('clientscount', function(data) {
+                $('#clientscount').html('Viewers: '+data);
+            });
+            socket.on('newmaster', function(data) {
+                //$('#mastermessages').html('Master Changed');
+            });
+            socket.on('masterresult', function(data) {
+                var msg = 'Access Denied';
+                if(data=='ok') {
+                    msg = 'Access Granted';
+                    $.mobile.changePage('#remote');
+                }
+                console.log(msg);
+                //$('#mastermessages').html(msg);
+            });
+	    
+            // TIMER
+            var timerstarted = false;
+            var min = 0, sec = 0;
+            function startstoptimer() {
+                timerstarted = !timerstarted;
+                if(timerstarted) { // now it's started!
+                    min = 0; sec = 0;
+                    $('#timer').html('00:00');
+                    setTimeout("incrementTimer();", 1000);
+                }
+            }
+            function incrementTimer() {
+                if(!timerstarted) return;
+                sec++;
+                if(sec == 60) { sec = 0; min++; }
+                var strmin = ((min<10) ? "0"+min : min);
+                var strsec = ((sec<10) ? "0"+sec : sec);
+                $('#timer').html(strmin+":"+strsec);
+                setTimeout("incrementTimer();", 1000);
+            }
+
+            // slides preview
+            $(":input[@name='radio-choice-1']").live('change mousedown', function(event) { 
+                var slidetext = ''; // disabled
+                if($("input#radio-choice-2").attr("checked") == "checked") // current slide
+                    slidetext = '/viewer/';
+                if($("input#radio-choice-3").attr("checked") == "checked") // next slide
+                    slidetext = '/viewer/?next=true';
+                if(slidetext!='') slidetext = '<iframe src="'+host+slidetext+'" style="width:600px;height:400px;text-align:center;"></iframe>';
+                $('#slide').html(slidetext);
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Authentication -->
+        <div data-role="page" id="authentication">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Authentication
+                </h3>
+            </div>
+            <div data-role="content" style="padding: 15px">
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput1">
+                            Passcode:
+                        </label>
+                        <input name="" id="pass" placeholder="" value="" type="password" />
+                    </fieldset>
+                </div>
+                <a data-role="button" data-inline="true" data-transition="fade" data-theme="b" href="#" data-icon="star" data-iconpos="left" onClick="socket.emit('masterkey', document.getElementById('pass').value); return false;">
+                    Authenticate
+                </a>
+            </div>
+        </div>
+<!-- Remote -->
+<div data-role="page" id="remote">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Remote
+        </h3>
+    </div>
+    <div data-role="content" style="padding: 15px">
+        <h1 id="timer" style="text-align:center;color:#a03030;" onClick="startstoptimer();">
+            00:00
+        </h1>
+        <h3 id="clientscount">
+            Viewers: 0
+        </h3>
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <!-- F1 BUTTON -->
+                <a data-role="button" data-transition="fade" href="#" class="button" id="F1" onClick="socket.emit('message', 'F1');">
+                    <script>document.write(buttontexts["F1"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <!-- UP BUTTON -->
+                <a data-role="button" data-transition="fade" data-theme="b" href="#" data-icon="arrow-u" data-iconpos="top" class="button" id="UP" onClick="socket.emit('message', 'UP');">
+                    <script>document.write(buttontexts["UP"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a data-role="button" data-transition="fade" href="#" class="button" id="F2" onClick="socket.emit('message', 'F2');">
+                    <script>document.write(buttontexts["F2"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-a">
+                <a data-role="button" data-transition="fade" data-theme="b" href="#" data-icon="arrow-l" data-iconpos="top" class="button" id="LEFT" onClick="socket.emit('message', 'LEFT');">
+                    <script>document.write(buttontexts["LEFT"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a data-role="button" data-transition="fade" href="#" data-icon="star" data-iconpos="top" class="button" id="MIDDLE" onClick="socket.emit('message', 'MIDDLE');">
+                   <script>document.write(buttontexts["MIDDLE"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a data-role="button" data-transition="fade" data-theme="b" href="#" data-icon="arrow-r" data-iconpos="top" class="button" id="RIGHT" onClick="socket.emit('message', 'RIGHT');">
+                    <script>document.write(buttontexts["RIGHT"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-a">
+                <a data-role="button" data-transition="fade" href="#" class="button" id="F3" onClick="socket.emit('message', 'F3');">
+                    <script>document.write(buttontexts["F3"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a data-role="button" data-transition="fade" data-theme="b" href="#" data-icon="arrow-d" data-iconpos="top" class="button" id="DOWN" onClick="socket.emit('message', 'DOWN');">
+                    <script>document.write(buttontexts["DOWN"]);</script>
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a data-role="button" data-transition="fade" href="#" class="button" id="F4" onClick="socket.emit('message', 'F4');">
+                    <script>document.write(buttontexts["F4"]);</script>
+                </a>
+            </div>
+        </div>
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <legend>Show slides:</legend>
+            <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" />
+            <label for="radio-choice-1">Disabled</label>
+
+            <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
+            <label for="radio-choice-2">Current slide</label>
+
+            <input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
+            <label for="radio-choice-3">Next slide</label>
+        </fieldset>
+        <div id="slide" style="text-align:center;"></div>
+    </div>
+</div>
+    </body>
+</html>
+
