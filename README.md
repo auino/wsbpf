@@ -18,7 +18,7 @@ A detailed description of this project is available at [bit.ly/wsbpfdescr](http:
     node server.js
     ```
 
-About the author:
+### About the author ###
 
 Enrico Cambiaso: [enricocambiaso.blogspot.com](http://enricocambiaso.blogspot.com)
 
