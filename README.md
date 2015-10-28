@@ -19,8 +19,6 @@ Quick start:
 
 About the author:
 
-Enrico Cambiaso
-
-[http://enricocambiaso.blogspot.com](http://enricocambiaso.blogspot.com)
+Enrico Cambiaso: [enricocambiaso.blogspot.com](http://enricocambiaso.blogspot.com)
 
 Twitter: [@auino](https://twitter.com/auino)
