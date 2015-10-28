@@ -1,4 +1,5 @@
-# WSBPF - WEBSOCKET BASED PRESENTATION FRAMEWORK
+# WSBPF
+WEBSOCKET BASED PRESENTATION FRAMEWORK
 Version 0.1
 
 This (prototype) project baed on Node.js provides you a framework for deploying presentation slides on your guest.
@@ -17,6 +18,9 @@ node server.js
 ```
 
 About the author:
+
 Enrico Cambiaso
+
 [http://enricocambiaso.blogspot.com](http://enricocambiaso.blogspot.com)
+
 Twitter: [@auino](https://twitter.com/auino)
