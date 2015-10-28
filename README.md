@@ -9,13 +9,13 @@ Quick start:
  0. Change `YourWebSocketServer` string in HTML files, mapping them to your server IP address/hostname
  1. Install Node.js from [nodejs.org](https://nodejs.org)
  2. Install `Socket.IO`:
-```
-npm install socket.io
-```
+    ```
+    npm install socket.io
+    ```
  3. Launch the server:
-```
-node server.js
-```
+    ```
+    node server.js
+    ```
 
 About the author:
 
