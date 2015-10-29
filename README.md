@@ -2,7 +2,11 @@
 WEBSOCKET BASED PRESENTATION FRAMEWORK
 
 This (prototype) project based on Node.js provides you a framework for deploying presentation slides on your guest.
+
+![Example of Command Spread on WSBPF](http://3.bp.blogspot.com/-Lj1hovP35K8/UFRSCGk_21I/AAAAAAAAOtA/8e81WiZRItk/s1600/wsbpf_architecture.png)
+
 A detailed description of this project is available at [bit.ly/wsbpfdescr](http://bit.ly/wsbpfdescr)
+
 
 ### Quick start ###
  0. Change `YourWebSocketServer` string in HTML files, mapping them to your server IP address/hostname
