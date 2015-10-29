@@ -1,7 +1,7 @@
 # WSBPF
 WEBSOCKET BASED PRESENTATION FRAMEWORK
 
-This (prototype) project based on Node.js provides you a framework for deploying presentation slides on your guest.
+This (prototype) project based on Node.js provides you a framework for deploying presentation slides to your guest and use your smartphone or tablet as a remote.
 
 ![Example of Command Spread on WSBPF](http://3.bp.blogspot.com/-Lj1hovP35K8/UFRSCGk_21I/AAAAAAAAOtA/8e81WiZRItk/s1600/wsbpf_architecture.png)
 
