@@ -9,13 +9,14 @@ A detailed description of this project is available at [bit.ly/wsbpfdescr](http:
 
 
 ### Quick start ###
- 0. Change `YourWebSocketServer` string in HTML files, mapping them to your server IP address/hostname
- 1. Install Node.js from [nodejs.org](https://nodejs.org)
- 2. Install `Socket.IO`:
+
+ 1. Change `YourWebSocketServer` string in HTML files, mapping them to your server IP address/hostname
+ 2. Install Node.js from [nodejs.org](https://nodejs.org)
+ 3. Install `Socket.IO`:
     ```
     npm install socket.io
     ```
- 3. Launch the server:
+ 4. Launch the server:
     ```
     node server.js
     ```
