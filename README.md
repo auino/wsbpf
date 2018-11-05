@@ -8,7 +8,7 @@ This (prototype) project based on Node.js provides you a framework for deploying
 A detailed description of this project is available at [bit.ly/wsbpfdescr](http://bit.ly/wsbpfdescr).
 
 
-### Quick start ###
+### Quick start ###
 
  1. Change `YourWebSocketServer` string in HTML files, mapping them to your server IP address/hostname
  2. Install Node.js from [nodejs.org](https://nodejs.org)
@@ -24,7 +24,7 @@ A detailed description of this project is available at [bit.ly/wsbpfdescr](http:
 Further information are available at the following address:
 [bit.ly/wsbpfdescr](http://bit.ly/wsbpfdescr)
 
-### About the author ###
+### About the author ###
 
 Enrico Cambiaso: [enricocambiaso.blogspot.com](http://enricocambiaso.blogspot.com)
 
